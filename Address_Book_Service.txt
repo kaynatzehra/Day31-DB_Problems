@@ -1,0 +1,404 @@
+# UC1
+mysql> create database Address_Book_Service;
+show databases;
+USE Address_Book_Service;
+Database changed
+
+#UC2
+mysql>  CREATE TABLE  addressBook (firstName varchar(50) NOT NULL, lastName varchar(50) NOT NULL, mobileNumber varchar(20) NOT NULL,email varchar(50) NOT NULL, city varchar(50) NOT NULL, state varchar(50) NOT NULL,
+    ->  zip long NOT NULL, PRIMARY KEY(firstName));
+ERROR 1050 (42S01): Table 'addressbook' already exists
+mysql>  describe addressBook;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| firstName    | varchar(50) | NO   | PRI | NULL    |       |
+| lastName     | varchar(50) | NO   |     | NULL    |       |
+| mobileNumber | varchar(20) | NO   |     | NULL    |       |
+| email        | varchar(50) | NO   |     | NULL    |       |
+| city         | varchar(50) | NO   |     | NULL    |       |
+| state        | varchar(50) | NO   |     | NULL    |       |
+| zip          | mediumtext  | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+#UC3
+mysql>  INSERT INTO addressBook(firstName,lastName,mobileNumber,email,city,state,zip) VALUES('Kaynat','Zehra','9909876543','kz@gmail','Noida','UP',201456),('Payal','Kasaudhan','8796564738','abc@gmail','Mumbra','Maharashtra',131551),('Arti','Singh','9967543256','xyz@gmail','Lucknow','UP',13145);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from addressBook;
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+| firstName | lastName  | mobileNumber | email        | city      | state       | zip    |
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+| Arti      | Singh     | 9967543256   | xyz@gmail    | Lucknow   | UP          | 13145  |
+| Kaynat    | Zehra     | 9909876543   | kz@gmail     | Noida     | UP          | 201456 |
+| Pankaj    | verma     | 9876566569   | abc@gmail    | Faridabad | Haryana     | 121001 |
+| Payal     | Kasaudhan | 8796564738   | abc@gmail    | Mumbra    | Maharashtra | 131551 |
+| Piyush    | Verma     | 9910936991   | piyush@gmail | Faridabad | haryana     | 121001 |
+| Ramit     | Chauhan   | 9987676554   | xyz@gmail    | Noida     | UP          | 121998 |
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+6 rows in set (0.00 sec)
+
+#UC4
+mysql> UPDATE addressBook set MobileNumber="9967587648" where FirstName = 'Kaynat';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressBook;
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+| firstName | lastName  | mobileNumber | email        | city      | state       | zip    |
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+| Arti      | Singh     | 9967543256   | xyz@gmail    | Lucknow   | UP          | 13145  |
+| Kaynat    | Zehra     | 9967587648   | kz@gmail     | Noida     | UP          | 201456 |
+| Pankaj    | verma     | 9876566569   | abc@gmail    | Faridabad | Haryana     | 121001 |
+| Payal     | Kasaudhan | 8796564738   | abc@gmail    | Mumbra    | Maharashtra | 131551 |
+| Piyush    | Verma     | 9910936991   | piyush@gmail | Faridabad | haryana     | 121001 |
+| Ramit     | Chauhan   | 9987676554   | xyz@gmail    | Noida     | UP          | 121998 |
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+6 rows in set (0.00 sec)
+
+#UC5
+mysql> DELETE from addressBook where FirstName='Ramit';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressBook;
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+| firstName | lastName  | mobileNumber | email        | city      | state       | zip    |
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+| Arti      | Singh     | 9967543256   | xyz@gmail    | Lucknow   | UP          | 13145  |
+| Kaynat    | Zehra     | 9967587648   | kz@gmail     | Noida     | UP          | 201456 |
+| Pankaj    | verma     | 9876566569   | abc@gmail    | Faridabad | Haryana     | 121001 |
+| Payal     | Kasaudhan | 8796564738   | abc@gmail    | Mumbra    | Maharashtra | 131551 |
+| Piyush    | Verma     | 9910936991   | piyush@gmail | Faridabad | haryana     | 121001 |
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE from addressBook where FirstName='Arti';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressBook;
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+| firstName | lastName  | mobileNumber | email        | city      | state       | zip    |
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+| Kaynat    | Zehra     | 9967587648   | kz@gmail     | Noida     | UP          | 201456 |
+| Pankaj    | verma     | 9876566569   | abc@gmail    | Faridabad | Haryana     | 121001 |
+| Payal     | Kasaudhan | 8796564738   | abc@gmail    | Mumbra    | Maharashtra | 131551 |
+| Piyush    | Verma     | 9910936991   | piyush@gmail | Faridabad | haryana     | 121001 |
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+4 rows in set (0.00 sec)
+
+#UC6
+mysql> INSERT INTO addressBook(firstName,lastName,mobileNumber,email,city,state,zip) VALUES('Arti','Singh','9967543256','xyz@gmail','Noida','UP',13145);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressBook;
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+| firstName | lastName  | mobileNumber | email        | city      | state       | zip    |
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+| Arti      | Singh     | 9967543256   | xyz@gmail    | Noida     | UP          | 13145  |
+| Kaynat    | Zehra     | 9967587648   | kz@gmail     | Noida     | UP          | 201456 |
+| Pankaj    | verma     | 9876566569   | abc@gmail    | Faridabad | Haryana     | 121001 |
+| Payal     | Kasaudhan | 8796564738   | abc@gmail    | Mumbra    | Maharashtra | 131551 |
+| Piyush    | Verma     | 9910936991   | piyush@gmail | Faridabad | haryana     | 121001 |
++-----------+-----------+--------------+--------------+-----------+-------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * from addressBook where city = 'Noida';
++-----------+----------+--------------+-----------+-------+-------+--------+
+| firstName | lastName | mobileNumber | email     | city  | state | zip    |
++-----------+----------+--------------+-----------+-------+-------+--------+
+| Arti      | Singh    | 9967543256   | xyz@gmail | Noida | UP    | 13145  |
+| Kaynat    | Zehra    | 9967587648   | kz@gmail  | Noida | UP    | 201456 |
++-----------+----------+--------------+-----------+-------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * from addressBook where state ='Maharashtra';
++-----------+-----------+--------------+-----------+--------+-------------+--------+
+| firstName | lastName  | mobileNumber | email     | city   | state       | zip    |
++-----------+-----------+--------------+-----------+--------+-------------+--------+
+| Payal     | Kasaudhan | 8796564738   | abc@gmail | Mumbra | Maharashtra | 131551 |
++-----------+-----------+--------------+-----------+--------+-------------+--------+
+1 row in set (0.00 sec)
+
+#UC7
+ mysql>  SELECT city,COUNT(city) as count from addressBook group by city;
++-----------+-------+
+| city      | count |
++-----------+-------+
+| Noida     |     2 |
+| Faridabad |     2 |
+| Mumbra    |     1 |
++-----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT state,COUNT(state) as count from addressBook group by state;
++-------------+-------+
+| state       | count |
++-------------+-------+
+| UP          |     2 |
+| Haryana     |     2 |
+| Maharashtra |     1 |
++-------------+-------+
+3 rows in set (0.00 sec)
+
+#UC8
+
+mysql> SELECT firstName,lastName from addressBook ORDER BY city;
++-----------+-----------+
+| firstName | lastName  |
++-----------+-----------+
+| Pankaj    | verma     |
+| Piyush    | Verma     |
+| Payal     | Kasaudhan |
+| Arti      | Singh     |
+| Kaynat    | Zehra     |
++-----------+-----------+
+5 rows in set (0.00 sec)
+
+#UC9
+
+mysql> alter table addressBook add type varchar(15) after lastName;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>  desc addressBook;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| firstName    | varchar(50) | NO   | PRI | NULL    |       |
+| lastName     | varchar(50) | NO   |     | NULL    |       |
+| type         | varchar(15) | YES  |     | NULL    |       |
+| mobileNumber | varchar(20) | NO   |     | NULL    |       |
+| email        | varchar(50) | NO   |     | NULL    |       |
+| city         | varchar(50) | NO   |     | NULL    |       |
+| state        | varchar(50) | NO   |     | NULL    |       |
+| zip          | mediumtext  | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+mysql> update addressBook set type = 'Family' where firstName ='Kaynat';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  update addressBook set type = 'Student' where firstName='Payal';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  update addressBook set type = 'Teacher' where firstName='Arti';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  update addressBook set type = 'Trainer' where firstName='Piyush';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  update addressBook set type = 'Engineer' where firstName='Priyanka';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressBook;
++-----------+-----------+----------+--------------+---------------+-----------+-------------+--------+
+| firstName | lastName  | type     | mobileNumber | email         | city      | state       | zip    |
++-----------+-----------+----------+--------------+---------------+-----------+-------------+--------+
+| Arti      | Singh     | Teacher  | 9967543256   | xyz@gmail     | Noida     | UP          | 13145  |
+| Kaynat    | Zehra     | Family   | 9967587648   | kz@gmail      | Noida     | UP          | 201456 |
+| Payal     | Kasaudhan | Student  | 8796564738   | abc@gmail     | Mumbra    | Maharashtra | 131551 |
+| Piyush    | Verma     | Trainer  | 9910936991   | piyush@gmail  | Faridabad | haryana     | 121001 |
+| Priyanka  | verma     | Engineer | 9876566569   | klm@gmail.com | Faridabad | Haryana     | 121001 |
++-----------+-----------+----------+--------------+---------------+-----------+-------------+--------+
+5 rows in set (0.00 sec)
+
+#UC10
+
+mysql> select type, Count(type) from addressBook group by type;
++----------+-------------+
+| type     | Count(type) |
++----------+-------------+
+| Teacher  |           1 |
+| Family   |           1 |
+| Student  |           1 |
+| Trainer  |           1 |
+| Engineer |           1 |
++----------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO addressBook(firstName,lastName,type,mobileNumber,email,city,state,zip) VALUES('Ndhi','Prakash','Friend','9787675747','nidhi@gmail.com','Noida','UP',121340);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO addressBook(firstName,lastName,type,mobileNumber,email,city,state,zip) VALUES('Saif','Abbas','Student','9909897969','saif@gmail.com','Raipur','MP',59340);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressBook;
++-----------+-----------+----------+--------------+-----------------+-----------+-------------+--------+
+| firstName | lastName  | type     | mobileNumber | email           | city      | state       | zip    |
++-----------+-----------+----------+--------------+-----------------+-----------+-------------+--------+
+| Arti      | Singh     | Teacher  | 9967543256   | xyz@gmail       | Noida     | UP          | 13145  |
+| Kaynat    | Zehra     | Family   | 9967587648   | kz@gmail        | Noida     | UP          | 201456 |
+| Ndhi      | Prakash   | Friend   | 9787675747   | nidhi@gmail.com | Noida     | UP          | 121340 |
+| Payal     | Kasaudhan | Student  | 8796564738   | abc@gmail       | Mumbra    | Maharashtra | 131551 |
+| Piyush    | Verma     | Trainer  | 9910936991   | piyush@gmail    | Faridabad | haryana     | 121001 |
+| Priyanka  | verma     | Engineer | 9876566569   | klm@gmail.com   | Faridabad | Haryana     | 121001 |
+| Saif      | Abbas     | Student  | 9909897969   | saif@gmail.com  | Raipur    | MP          | 59340  |
++-----------+-----------+----------+--------------+-----------------+-----------+-------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> CREATE TABLE  contacts(firstName varchar(50) NOT NULL, lastName varchar(50) NOT NULL,mobileNumber varchar(20) NOT NULL,email varchar(50) NOT NULL, PRIMARY KEY(firstName));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql>  desc contacts;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| firstName    | varchar(50) | NO   | PRI | NULL    |       |
+| lastName     | varchar(50) | NO   |     | NULL    |       |
+| mobileNumber | varchar(20) | NO   |     | NULL    |       |
+| email        | varchar(50) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> create table address(zip varchar(10) not null,city varchar(50) not null,state varchar(50) not null,primary key(zip));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc address;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| zip   | varchar(10) | NO   | PRI | NULL    |       |
+| city  | varchar(50) | NO   |     | NULL    |       |
+| state | varchar(50) | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table contacts_address(firstname varchar(20) not null,zip varchar(6) not null,foreign key (firstname) references contacts(firstname),foreign key (zip) references address(zip));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc contacts_address;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| firstname | varchar(20) | NO   | MUL | NULL    |       |
+| zip       | varchar(6)  | NO   | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql>  create table relations (type varchar(20),primary key(type));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>  describe relations;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| type  | varchar(20) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+1 row in set (0.01 sec)
+
+mysql> create table contacts_relation(firstname varchar(20) not null,type varchar(20),foreign key(firstname) references contacts(firstname),foreign key(type) references relations(type));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> desc contacts_relation;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| firstname | varchar(20) | NO   | MUL | NULL    |       |
+| type      | varchar(20) | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+#UC11
+
+mysql>  select * from contacts;
++-----------+----------+--------------+---------------+
+| firstName | lastName | mobileNumber | email         |
++-----------+----------+--------------+---------------+
+| Kaynat    | Zehra    |  9967587648  | kz@gmail.com  |
+| Parv      | Mohan    | 7788996655   | pv@gmail.com  |
+| Poorva    | Bhim     | 887968564    | akk@gmail.com |
+| Senthil   | Pandey   | 7799876754   | senthil@gmail |
++-----------+----------+--------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql>  insert into relations values('family'),('friend'),('student');
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql>  select * from relations;
++---------+
+| type    |
++---------+
+| family  |
+| friend  |
+| student |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> insert into address values('12887','Kanth','MP'),('121002','Noida','UP'),('123300','Faridabad','Haryana');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from address;
++--------+-----------+---------+
+| zip    | city      | state   |
++--------+-----------+---------+
+| 121002 | Noida     | UP      |
+| 123300 | Faridabad | Haryana |
+| 12887  | Kanth     | MP      |
++--------+-----------+---------+
+3 rows in set (0.00 sec)
+
+mysql>  insert into contacts_relation values('Parv','friend'),('Kaynat','family'),('Poorva','family'),('Senthil','student');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from contacts_relation;
++-----------+---------+
+| firstname | type    |
++-----------+---------+
+| Parv      | friend  |
+| Kaynat    | family  |
+| Poorva    | family  |
+| Senthil   | student |
++-----------+---------+
+4 rows in set (0.00 sec)
+
+#UC13 : Ensure all retrieve queries done especially in UC 6, UC 7, UC 8 and UC 10 are working with new AStable structure
+mysql> select count(contacts.firstname) from contacts,contacts_address,address where contacts.firstname = contacts_address.firstname and contacts_address.zip = address.zip and address.state = 'Noida';
++---------------------------+
+| count(contacts.firstname) |
++---------------------------+
+|                         0 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(contacts.firstname) from contacts,contacts_address,address where contacts.firstname = contacts_address.firstname and contacts_address.zip = address.zip and address.state = 'hryana';
++---------------------------+
+| count(contacts.firstname) |
++---------------------------+
+|                         0 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(contacts.firstname) from contacts,contacts_address,address where contacts.firstname = contacts_address.firstname and contacts_address.zip = address.zip and address.state = 'haryana';
++---------------------------+
+| count(contacts.firstname) |
++---------------------------+
+|                         0 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql>  select count(contacts.firstname) from contacts,contacts_address,address where contacts.firstname = contacts_address.firstname and contacts_address.zip = address.zip and address.state = 'MP';
++---------------------------+
+| count(contacts.firstname) |
++---------------------------+
+|                         0 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> select type, Count(firstName) from contacts_relation group by type;
++---------+------------------+
+| type    | Count(firstName) |
++---------+------------------+
+| family  |                2 |
+| friend  |                1 |
+| student |                1 |
++---------+------------------+
+3 rows in set (0.00 sec)
